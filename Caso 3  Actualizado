@@ -1,0 +1,160 @@
+//html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso 3 - Precio de Entrada al Cine</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <h1>Precio de Entrada al Cine</h1>
+
+        <form>
+            <!-- Lista desplegable para el tipo de día (Fase 1: Entrada) -->
+            <label for="tipoDia">Seleccione el tipo de día:</label>
+            <select id="tipoDia">
+                <option value="1">Semana</option>
+                <option value="2">Fin de semana</option>
+            </select>
+
+            <!-- Lista desplegable para el tipo de cliente (Fase 1: Entrada) -->
+            <label for="tipoCliente">Seleccione el tipo de cliente:</label>
+            <select id="tipoCliente">
+                <option value="1">Adulto</option>
+                <option value="2">Niño</option>
+                <option value="3">Senior</option>
+            </select>
+
+            <button onclick="calcularPrecioCine()" type="button">Calcular Precio</button>
+            <button onclick="limpiar()" type="button">Limpiar</button>
+
+            <!-- Area de resultado del algoritmo (Fase 3: Salida) -->
+            <div id="resultado"></div>
+        </form>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+//javascript
+function calcularPrecioCine() {
+    // Variables de entrada
+    var tipoDia, tipoCliente;
+
+    // Variables de salida
+    var precioFinal;
+    var salida;
+
+    // Fase 1: Entrada de datos (Captura de valores de los selectores)
+    tipoDia = parseInt(document.getElementById("tipoDia").value); // Entero
+    tipoCliente = parseInt(document.getElementById("tipoCliente").value); // Entero
+
+    // Inicializamos la variable igual que en C++
+    precioFinal = 0; // Entero
+
+    // Fase 2: Proceso de los datos (Tus condicionales anidados de C++)
+    if (tipoDia === 1) {
+        if (tipoCliente === 1) {
+            precioFinal = 10;
+        }
+        else if (tipoCliente === 2) {
+            precioFinal = 5;
+        }
+        else if (tipoCliente === 3) {
+            precioFinal = 8;
+        }
+    }
+    else if (tipoDia === 2) {
+        if (tipoCliente === 1) {
+            precioFinal = 12;
+        }
+        else if (tipoCliente === 2) {
+            precioFinal = 7;
+        }
+        else if (tipoCliente === 3) {
+            precioFinal = 10;
+        }
+    }
+
+    // Fase 3: Salida de datos (Equivalente a tus cout finales)
+    if (precioFinal > 0) {
+        salida = "<p>Precio final de la entrada: <b>S/ " + precioFinal + "</b></p>";
+    }
+    else {
+        salida = "<p style='color: red;'><b>Opción no válida, intente de nuevo</b></p>";
+    }
+
+    // Renderizamos la respuesta en la interfaz
+    document.getElementById("resultado").innerHTML = salida;
+}
+
+function limpiar() {
+    // Restablecemos los selectores a sus primeras opciones de la lista
+    document.getElementById("tipoDia").selectedIndex = 0;
+    document.getElementById("tipoCliente").selectedIndex = 0;
+    document.getElementById("resultado").innerHTML = "";
+    document.getElementById("tipoDia").focus();
+}
+
+//css
+/* Selector universal de elementos */
+* {
+    padding: 0;
+    margin: 0; 
+    box-sizing: border-box;
+}
+
+/* Selectores de tipo etiqueta */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    background-color: #d4d4d4;
+    padding-top: 50px;
+}
+
+h1 {
+    color: deepskyblue; 
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+main {
+    max-width: 500px;
+    background-color: #ffffff;
+    margin: auto;
+    padding: 30px;
+    box-shadow: 10px 10px 5px -5px #00000078;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Se agrega 'select' para que tenga la misma apariencia uniforme */
+label, input, select, button {
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font: inherit;
+}
+
+button {
+    background-color: #e1e1e1;
+    border: 1px solid #adadad;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d5d5d5;
+}
+
+/* Selectores de tipo id */
+#resultado {
+    margin-top: 20px;
+    text-align: center;
+    color: midnightblue;
+}
