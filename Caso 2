@@ -1,0 +1,195 @@
+//html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso 2 - Año Bisiesto</title>
+    <!-- Enlace a la hoja de estilos externos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="contenedor">
+        <h1>Verificador de Año Bisiesto</h1>
+        <p>Aplica reglas condicionales según el estándar del calendario gregoriano.</p>
+
+        <!-- FASE 1: ENTRADA DE DATOS (Equivalente al cin de tu C++) -->
+        <form id="formularioBisiesto">
+            <div class="grupo-control">
+                <label for="inputAnio">Ingrese el año:</label>
+                <input type="number" id="inputAnio" required min="1" placeholder="Ej. 2024">
+            </div>
+            
+            <button type="button" id="btnCalcular">Verificar Año</button>
+        </form>
+
+        <!-- FASE 3: SALIDA DE RESULTADOS (Equivalente al cout de tu C++) -->
+        <div id="contenedorResultado" class="resultado oculto">
+            <p id="textoResultado"></p>
+        </div>
+    </div>
+
+    <!-- Enlace al archivo de JavaScript lógico -->
+    <script src="script.js"></script>
+</body>
+</html>
+
+//css
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7fafc;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.contenedor {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+h1 {
+    color: #2d3748;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+p {
+    color: #718096;
+    font-size: 14px;
+}
+
+.grupo-control {
+    margin: 20px 0;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #4a5568;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+button {
+    background-color: #4c51bf;
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #434190;
+}
+
+.resultado {
+    margin-top: 25px;
+    padding: 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Clases de apoyo para cambiar el color según la respuesta */
+.es-bisiesto {
+    background-color: #c6f6d5;
+    color: #22543d;
+    border: 1px solid #9ae6b4;
+}
+
+.no-bisiesto {
+    background-color: #fed7d7;
+    color: #742a2a;
+    border: 1px solid #feb2b2;
+}
+
+.oculto {
+    display: none;
+}
+
+
+//javascript
+// Activamos la función cuando el usuario da clic al botón (Equivalente al inicio de tu int main)
+document.getElementById("btnCalcular").addEventListener("click", function() {
+    
+    // --- FASE 1: ENTRADA DE DATOS ---
+    // Captura el valor del input HTML
+    var stringAnio = document.getElementById("inputAnio").value;
+    // Convierte el texto a entero (Equivalente a tu cin >> anio)
+    var anio = parseInt(stringAnio);
+
+    // Validación básica para evitar valores vacíos o nulos
+    if (isNaN(anio) || anio <= 0) {
+        var contenedorErr = document.getElementById("contenedorResultado");
+        contenedorErr.className = "resultado no-bisiesto";
+        document.getElementById("textoResultado").textContent = "Error: Ingrese un año válido.";
+        return;
+    }
+
+    // Declaración de variable lógica (Equivalente a tu bool bisiesto = false;)
+    var bisiesto = false;
+
+    // --- FASE 2: PROCESOS LÓGICOS (Tu misma estructura if / else if / else) ---
+    if (anio % 400 === 0) {
+        bisiesto = true;
+    }
+    else if (anio % 100 === 0) {
+        bisiesto = false;
+    }
+    else if (anio % 4 === 0) {
+        bisiesto = true;
+    }
+    else {
+        bisiesto = false;
+    }
+
+    // Variable para contener la cadena final (Equivalente a tus cout)
+    var mensajeSalida = "";
+
+    // --- FASE 3: SALIDA DE RESULTADOS ---
+    if (bisiesto === true) {
+        mensajeSalida = "El año es bisiesto";
+    }
+    else {
+        mensajeSalida = "El año no es bisiesto";
+    }
+
+    // Pintar los resultados en la página web actualizando el nodo del DOM
+    var contenedor = document.getElementById("contenedorResultado");
+    var texto = document.getElementById("textoResultado");
+
+    // Limpiamos estilos previos y asignamos el mensaje final
+    contenedor.className = "resultado";
+    texto.textContent = mensajeSalida;
+
+    // Aplicamos colores condicionales según el valor del booleano
+    if (bisiesto === true) {
+        contenedor.classList.add("es-bisiesto");
+    } else {
+        contenedor.classList.add("no-bisiesto");
+    }
+});
