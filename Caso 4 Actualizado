@@ -1,0 +1,161 @@
+//html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso 4 - Prioridad de Mantenimiento</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <h1>Mantenimiento de Máquinas</h1>
+
+        <form>
+            <!-- Lista desplegable (Fase 1: Entrada) -->
+            <label for="opcionMaquina">Seleccione el tipo de máquina:</label>
+            <select id="opcionMaquina">
+                <option value="1">Corte</option>
+                <option value="2">Ensamble</option>
+                <option value="3">Pintura</option>
+            </select>
+
+            <!-- Entrada de texto numérico (Fase 1: Entrada) -->
+            <label for="horasdeuso">Ingrese las horas de uso:</label>
+            <input type="number" id="horasdeuso">
+
+            <button onclick="asignarPrioridad()" type="button">Asignar Prioridad</button>
+            <button onclick="limpiar()" type="button">Limpiar</button>
+
+            <!-- Area de resultado del algoritmo (Fase 3: Salida) -->
+            <div id="resultado"></div>
+        </form>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+//javascript
+function asignarPrioridad() {
+    // Variables de entrada y control
+    var opcionMaquina, horasdeuso;
+    var tipomaquina;
+
+    // Variables de salida
+    var prioridad;
+    var salida;
+
+    // Fase 1: Entrada de datos 
+    opcionMaquina = parseInt(document.getElementById("opcionMaquina").value); // Entero
+    horasdeuso = parseInt(document.getElementById("horasdeuso").value); // Entero
+
+    // Validación interna del formulario (En caso las horas queden vacías o sean negativas)
+    if (isNaN(horasdeuso) || horasdeuso < 0) {
+        document.getElementById("resultado").innerHTML = "<p style='color: red;'><b>Error: Ingrese una cantidad de horas válida.</b></p>";
+        return;
+    }
+
+    // Fase 2: Proceso de los datos (Tus condicionales de C++)
+    if (opcionMaquina === 1) {
+        tipomaquina = "Corte";
+    }
+    else if (opcionMaquina === 2) {
+        tipomaquina = "Ensamble";
+    }
+    else if (opcionMaquina === 3) {
+        tipomaquina = "Pintura";
+    }
+
+    // Determinación de la prioridad según las horas registradas
+    if (horasdeuso > 1000) {
+        prioridad = "Alta";
+    }
+    else if (horasdeuso >= 501 && horasdeuso <= 1000) {
+        prioridad = "Media";
+    }
+    else {
+        prioridad = "Baja";
+    }
+
+    // Fase 3: Salida de datos (Tu bloque ====REPORTE DE MANTENIMIENTO===)
+    salida = "<h3>==== REPORTE DE MANTENIMIENTO ====</h3><br>";
+    salida += "<p>Tipo de Máquina: <b>" + tipomaquina + "</b></p>";
+    salida += "<p>Horas Registradas: <b>" + horasdeuso + "</b></p>";
+    salida += "<p>Prioridad Asignada: <b>" + prioridad + "</b></p>";
+
+    // Renderizamos los resultados en pantalla
+    document.getElementById("resultado").innerHTML = salida;
+}
+
+function limpiar() {
+    document.getElementById("opcionMaquina").selectedIndex = 0;
+    document.getElementById("horasdeuso").value = "";
+    document.getElementById("resultado").innerHTML = "";
+    document.getElementById("opcionMaquina").focus();
+}
+
+//css
+/* Selector universal de elementos */
+* {
+    padding: 0;
+    margin: 0; 
+    box-sizing: border-box;
+}
+
+/* Selectores de tipo etiqueta */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    background-color: #d4d4d4;
+    padding-top: 50px;
+}
+
+h1 {
+    color: deepskyblue; 
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+main {
+    max-width: 500px;
+    background-color: #ffffff;
+    margin: auto;
+    padding: 30px;
+    box-shadow: 10px 10px 5px -5px #00000078;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label, input, select, button {
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font: inherit;
+}
+
+button {
+    background-color: #e1e1e1;
+    border: 1px solid #adadad;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d5d5d5;
+}
+
+/* Selectores de tipo id */
+#resultado {
+    margin-top: 20px;
+    text-align: center;
+    color: midnightblue;
+}
+
+#resultado h3 {
+    font-size: 20px;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
