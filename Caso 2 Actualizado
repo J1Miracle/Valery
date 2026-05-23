@@ -1,0 +1,131 @@
+//javascript
+function verificarBisiesto() {
+    // Variables de entrada
+    var anio;
+
+    // Variables de salida
+    var bisiesto;
+    var salida;
+
+    // Fase 1: Entrada de datos
+    anio = parseInt(document.getElementById("anio").value); // Entero
+
+    // Fase 2: Proceso de los datos (Tu misma lógica de C++)
+    bisiesto = false; // Lógico
+
+    if (anio % 400 === 0) {
+        bisiesto = true;
+    } 
+    else if (anio % 100 === 0) {
+        bisiesto = false;
+    } 
+    else if (anio % 4 === 0) {
+        bisiesto = true;
+    } 
+    else {
+        bisiesto = false;
+    }
+
+    // Determinación de la cadena de texto según el booleano
+    if (bisiesto === true) {
+        salida = "<p>El resultado es: <b>El año es bisiesto</b></p>";
+    } else {
+        salida = "<p>El resultado es: <b>El año no es bisiesto</b></p>";
+    }
+
+    // Fase 3: Salida de datos
+    document.getElementById("resultado").innerHTML = salida;
+}
+
+function limpiar() {
+    document.getElementById("anio").value = "";
+    document.getElementById("resultado").innerHTML = "";
+    document.getElementById("anio").focus();
+}
+//html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caso 2 - Año Bisiesto</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main>
+        <h1>Verificar Año Bisiesto</h1>
+
+        <form>
+            <label for="anio">Ingrese el año</label>
+            <input type="number" id="anio"> 
+
+            <button onclick="verificarBisiesto()" type="button">Verificar</button>
+            <button onclick="limpiar()" type="button">Limpiar</button>
+
+            <!-- Area de resultado del algoritmo -->
+            <div id="resultado"></div>
+        </form>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+//css
+/* Selector universal de elementos */
+* {
+    padding: 0;
+    margin: 0; 
+    box-sizing: border-box;
+}
+
+/* Selectores de tipo etiqueta */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    background-color: #d4d4d4;
+    padding-top: 50px; /* Espacio superior para que no pegue al techo */
+}
+
+h1 {
+    color: deepskyblue; 
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+main {
+    max-width: 500px;
+    background-color: #ffffff;
+    margin: auto;
+    padding: 30px;
+    box-shadow: 10px 10px 5px -5px #00000078;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label, input, button {
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font: inherit;
+}
+
+button {
+    background-color: #e1e1e1;
+    border: 1px solid #adadad;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d5d5d5;
+}
+
+/* Selectores de tipo id */
+#resultado {
+    margin-top: 20px;
+    text-align: center;
+    color: midnightblue;
+}
